@@ -1,8 +1,11 @@
 # Project data (not source)
 .workbuddy-ai/
 
-# Preview screenshots (regenerated locally)
-preview-*.png
+# Local screenshots / tools output (never part of the site)
+/*.png
+/check-*.png
+/verify-*.png
+/THshaper_*.png
 
 # OS / editor
 Thumbs.db
