@@ -3,7 +3,6 @@
 // ================================
 
 // State
-let cart = [];
 let currentFilter = 'all';
 let currentSearchTerm = '';
 
@@ -98,9 +97,10 @@ function renderProducts(productsToRender = null) {
                         ${product.soldCount > 0 ? `<span>· ขายแล้ว ${product.soldCount}</span>` : ''}
                     </div>
                     <div class="product-actions">
-                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                            <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
-                        </button>
+                        <a class="btn-lazada" href="${product.lazadaUrl}" target="_blank" rel="noopener"
+                           onclick="event.stopPropagation();">
+                            <i class="fas fa-shopping-bag"></i> ดูบน Lazada
+                        </a>
                         <a class="btn-quick-view" href="${href}" title="ดูรายละเอียดสินค้า"
                            onclick="event.stopPropagation(); openProduct(${product.id}); return false;">
                             <i class="fas fa-eye"></i> ดู
@@ -168,24 +168,10 @@ function showProductDetail(productId) {
                 </ul>
             </div>
             
-            <div class="quantity-selector">
-                <label>จำนวน:</label>
-                <div class="qty-controls">
-                    <button onclick="changeQty(-1)">-</button>
-                    <input type="number" id="qtyInput" value="1" min="1" max="99">
-                    <button onclick="changeQty(1)">+</button>
-                </div>
-            </div>
-            
             <div class="product-detail-actions">
-                <button class="btn btn-primary btn-lg" onclick="addToCart(${product.id}, parseInt(document.getElementById('qtyInput').value))">
-                    <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
-                </button>
-                ${product.lazadaUrl !== '#' ? `
-                    <a href="${product.lazadaUrl}" target="_blank" class="btn btn-lg" style="background: #f5722a; color: white;">
-                        <i class="fas fa-shopping-bag"></i> ดูบน Lazada
-                    </a>
-                ` : ''}
+                <a href="${product.lazadaUrl}" target="_blank" rel="noopener" class="btn btn-lazada btn-lg">
+                    <i class="fas fa-shopping-bag"></i> ดูบน Lazada
+                </a>
             </div>
         </div>
     `;
@@ -224,9 +210,10 @@ function showProductDetail(productId) {
                                     <span>(${r.reviewCount})</span>
                                 </div>
                                 <div class="product-actions">
-                                    <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${r.id})">
-                                        <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
-                                    </button>
+                                    <a class="btn-lazada" href="${r.lazadaUrl}" target="_blank" rel="noopener"
+                                       onclick="event.stopPropagation();">
+                                        <i class="fas fa-shopping-bag"></i> ดูบน Lazada
+                                    </a>
                                     <a class="btn-quick-view" href="${rhref}" title="ดูรายละเอียดสินค้า"
                                        onclick="event.stopPropagation(); openProduct(${r.id}); return false;">
                                         <i class="fas fa-eye"></i> ดู
@@ -243,16 +230,6 @@ function showProductDetail(productId) {
     }
     
     showPage('product');
-}
-
-// Change quantity on product detail
-function changeQty(delta) {
-    const input = document.getElementById('qtyInput');
-    let val = parseInt(input.value) || 1;
-    val += delta;
-    if (val < 1) val = 1;
-    if (val > 99) val = 99;
-    input.value = val;
 }
 
 // Filter products by category
@@ -307,105 +284,6 @@ function searchProducts() {
     } else {
         showPage('home');
     }
-}
-
-// Add to cart
-function addToCart(productId, qty = 1) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const existing = cart.find(item => item.id === productId);
-    if (existing) {
-        existing.qty += qty;
-    } else {
-        cart.push({ ...product, qty: qty });
-    }
-    
-    updateCart();
-    showToast('เพิ่มสินค้าลงตะกร้าแล้ว!', 'check-circle');
-}
-
-// Remove from cart
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    updateCart();
-}
-
-// Change cart quantity
-function changeCartQty(productId, delta) {
-    const item = cart.find(i => i.id === productId);
-    if (!item) return;
-    
-    item.qty += delta;
-    if (item.qty < 1) {
-        removeFromCart(productId);
-        return;
-    }
-    updateCart();
-}
-
-// Update cart UI
-function updateCart() {
-    const count = cart.reduce((sum, item) => sum + item.qty, 0);
-    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    
-    document.getElementById('cartCount').textContent = count;
-    document.getElementById('cartTotal').textContent = formatPrice(total);
-    
-    const cartItems = document.getElementById('cartItems');
-    const cartFooter = document.getElementById('cartFooter');
-    
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<p class="empty-cart"><i class="fas fa-shopping-cart" style="font-size:48px; display:block; margin-bottom:15px; color:#ddd;"></i>ตะกร้าสินค้าว่าง</p>';
-        cartFooter.style.display = 'none';
-    } else {
-        cartItems.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.name}" 
-                     onerror="this.src='https://via.placeholder.com/70x70/23B5C1/ffffff?text=C';" />
-                <div class="cart-item-info">
-                    <p class="cart-item-name">${item.name}</p>
-                    <p class="cart-item-price">${formatPrice(item.price)}</p>
-                    <div class="cart-item-qty">
-                        <button onclick="changeCartQty(${item.id}, -1)">-</button>
-                        <span>${item.qty}</span>
-                        <button onclick="changeCartQty(${item.id}, 1)">+</button>
-                    </div>
-                </div>
-                <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </div>
-        `).join('');
-        cartFooter.style.display = 'block';
-    }
-}
-
-// Toggle cart sidebar
-function toggleCart() {
-    document.getElementById('cartSidebar').classList.toggle('active');
-    document.getElementById('cartOverlay').classList.toggle('active');
-}
-
-// Checkout
-function checkout() {
-    if (cart.length === 0) {
-        showToast('ตะกร้าสินค้าว่าง!', 'exclamation-circle');
-        return;
-    }
-    
-    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    const count = cart.reduce((sum, item) => sum + item.qty, 0);
-    
-    showToast(`สั่งซื้อสำเร็จ! ${count} ชิ้น ยอดรวม ${formatPrice(total)}`, 'check-circle');
-    
-    cart = [];
-    updateCart();
-    toggleCart();
-    
-    setTimeout(() => {
-        alert(`ขอบคุณสำหรับการสั่งซื้อ!\n\nจำนวน: ${count} ชิ้น\nยอดรวม: ${formatPrice(total)}\n\nทีมงาน THshaper จะติดต่อคุณเพื่อยืนยันการสั่งซื้อภายในเร็บวันนี้`);
-    }, 500);
 }
 
 // Subscribe newsletter
@@ -465,11 +343,7 @@ function startCountdown() {
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
-    updateCart();
     startCountdown();
-    
-    // Close cart on overlay click
-    document.getElementById('cartOverlay').addEventListener('click', toggleCart);
     
     // Search on Enter key
     document.getElementById('searchInput').addEventListener('keypress', function(e) {
