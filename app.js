@@ -110,13 +110,23 @@ function productCardHTML(product) {
     `;
 }
 
-// Render products, grouped into clearly separated category blocks
-function renderProducts(productsToRender = null) {
+// Render products.
+//   grouped = false -> all products in ONE combined grid
+//                      (the "สินค้าทั้งหมด" view and search results)
+//   grouped = true  -> one labelled section per category
+//                      (when a single category has been selected)
+function renderProducts(productsToRender = null, grouped = false) {
     const box = document.getElementById('productsGrid');
     const list = productsToRender || products;
 
     if (list.length === 0) {
         box.innerHTML = '<p class="products-empty">ไม่พบสินค้าที่ค้นหา</p>';
+        return;
+    }
+
+    // combined view: every product together in a single grid
+    if (!grouped) {
+        box.innerHTML = `<div class="products-grid">${list.map(productCardHTML).join('')}</div>`;
         return;
     }
 
@@ -275,10 +285,12 @@ function filterCategory(category) {
     });
     
     if (category === 'all') {
-        renderProducts(products);
+        // "สินค้าทั้งหมด" -> all products combined in one grid
+        renderProducts(products, false);
     } else {
+        // a specific category -> shown as its own labelled section
         const filtered = products.filter(p => p.category === category);
-        renderProducts(filtered);
+        renderProducts(filtered, true);
     }
     
     showPage('home');
@@ -294,7 +306,9 @@ function searchProducts() {
     currentSearchTerm = term;
     
     if (term === '') {
-        renderProducts(currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter));
+        // clearing the box restores whatever category view was active
+        const grouped = currentFilter !== 'all';
+        renderProducts(grouped ? products.filter(p => p.category === currentFilter) : products, grouped);
         return;
     }
     
