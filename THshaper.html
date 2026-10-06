@@ -1015,28 +1015,6 @@ footer {
     width: 18px;
 }
 
-.social-links {
-    display: flex;
-    gap: 10px;
-}
-
-.social-links a {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    transition: var(--transition);
-}
-
-.social-links a:hover {
-    background: var(--teal);
-    transform: translateY(-3px);
-}
-
 .footer-bottom {
     padding: 15px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1395,20 +1373,6 @@ footer {
                             <p>contact@thshaper.com</p>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <i class="fab fa-line"></i>
-                        <div>
-                            <h3>LINE</h3>
-                            <p>@thshaper</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-facebook"></i>
-                        <div>
-                            <h3>Facebook</h3>
-                            <p>THshaper Thailand</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="contact-form-wrapper">
                     <form class="contact-form" onsubmit="submitContact(event)">
@@ -1444,12 +1408,6 @@ footer {
                     <div class="footer-col">
                         <h3>TH<span class="logo-accent">shaper</span></h3>
                         <p>ร้านค้าออนไลน์อย่างเป็นทางการ จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ ราคาประหยัด ส่งทั่วประเทศไทย</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-line"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-tiktok"></i></a>
-                        </div>
                     </div>
                     <div class="footer-col">
                         <h4>หมวดสินค้า</h4>
@@ -1474,7 +1432,6 @@ footer {
                         <ul>
                             <li><i class="fas fa-phone"></i> 02-xxx-xxxx</li>
                             <li><i class="fas fa-envelope"></i> contact@thshaper.com</li>
-                            <li><i class="fab fa-line"></i> @thshaper</li>
                             <li><i class="fas fa-map-marker-alt"></i> กรุงเทพมหานคร ประเทศไทย</li>
                         </ul>
                     </div>
@@ -1716,8 +1673,6 @@ const storeInfo = {
     description: "ร้านค้าออนไลน์ที่จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ ครอบคลุมหมวดสุขภาพและความงาม เครื่องใช้ไฟฟ้าในบ้าน และอุปกรณ์ทำความสะอาด ส่งทั่วประเทศไทย",
     phone: "02-xxx-xxxx",
     email: "contact@thshaper.com",
-    line: "@thshaper",
-    facebook: "THshaper Thailand",
     address: "กรุงเทพมหานคร ประเทศไทย",
     lazadaUrl: "https://www.lazada.co.th/centreasu/"
 };

@@ -222,8 +222,6 @@ const storeInfo = {
     description: "ร้านค้าออนไลน์ที่จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ ครอบคลุมหมวดสุขภาพและความงาม เครื่องใช้ไฟฟ้าในบ้าน และอุปกรณ์ทำความสะอาด ส่งทั่วประเทศไทย",
     phone: "02-xxx-xxxx",
     email: "contact@thshaper.com",
-    line: "@thshaper",
-    facebook: "THshaper Thailand",
     address: "กรุงเทพมหานคร ประเทศไทย",
     lazadaUrl: "https://www.lazada.co.th/centreasu/"
 };
