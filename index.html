@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THshaper - ร้านค้าออนไลน์ | สินค้าคุณภาพราคาประหยัด</title>
+    <meta name="description" content="THshaper ร้านค้าออนไลน์อย่างเป็นทางการ จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ ราคาประหยัด ส่งทั่วประเทศไทย">
+    <meta name="keywords" content="THshaper, ร้านค้าออนไลน์, ช้อปปิ้งออนไลน์, สินค้าลดราคา, แชมพูสมุนไพร, กล่องข้าวอุ่นไฟฟ้า, เครื่องดูดฝุ่น">
+    <meta name="author" content="THshaper">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="THshaper - ร้านค้าออนไลน์">
+    <meta property="og:description" content="สินค้าคุณภาพราคาประหยัด ส่งทั่วประเทศไทย">
+    
+    <!-- Schema.org structured data for Google SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "OnlineStore",
+        "name": "THshaper",
+        "description": "ร้านค้าออนไลน์อย่างเป็นทางการ จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ",
+        "url": "https://thshaper-store.google.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "TH"
+        }
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-left">
+                    <span><i class="fas fa-truck"></i> จัดส่งฟรีทั่วประเทศ</span>
+                    <span><i class="fas fa-phone"></i> โทร: 02-xxx-xxxx</span>
+                </div>
+                <div class="header-top-right">
+                    <span><i class="fas fa-envelope"></i> contact@thshaper.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <div class="header-flex">
+                    <div class="logo" onclick="showPage('home')">
+                        <img src="images/logo.png" alt="THshaper Logo" class="logo-img">
+                        <div class="logo-text">
+                            <h1>TH<span class="logo-accent">shaper</span></h1>
+                            <p>ร้านค้าออนไลน์</p>
+                        </div>
+                    </div>
+                    
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="ค้นหาสินค้า..." onkeyup="searchProducts()">
+                        <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <div class="cart-icon" onclick="toggleCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="container">
+                <ul>
+                    <li><a href="?" onclick="return openPage('home');">หน้าแรก</a></li>
+                    <li><a href="?" onclick="filterCategory('all'); return false;">สินค้าทั้งหมด</a></li>
+                    <li><a href="?" onclick="filterCategory('beauty'); return false;">สุขภาพและความงาม</a></li>
+                    <li><a href="?" onclick="filterCategory('home'); return false;">เครื่องใช้ไฟฟ้าในบ้าน</a></li>
+                    <li><a href="?" onclick="filterCategory('cleaning'); return false;">อุปกรณ์ทำความสะอาด</a></li>
+                    <li><a href="?page=about" onclick="return openPage('about');">เกี่ยวกับเรา</a></li>
+                    <li><a href="?page=contact" onclick="return openPage('contact');">ติดต่อเรา</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="page-home" class="page active">
+        <!-- Hero Banner -->
+        <section class="hero">
+            <div class="hero-overlay">
+                <div class="container">
+                    <div class="hero-content">
+                        <img src="images/logo.png" alt="THshaper" class="hero-logo">
+                        <h2>ยินดีต้อนรับสู่ THshaper</h2>
+                        <p>ร้านค้าออนไลน์อย่างเป็นทางการ สินค้าคุณภาพราคาประหยัด ส่งทั่วประเทศไทย</p>
+                        <button class="btn btn-primary btn-lg" onclick="filterCategory('all')">
+                            <i class="fas fa-shopping-bag"></i> ช้อปเลยตอนนี้
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-truck-fast"></i>
+                        <h3>จัดส่งรวดเร็ว</h3>
+                        <p>ส่งทั่วประเทศภายใน 1-3 วัน</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-halved"></i>
+                        <h3>รับประกันคุณภาพ</h3>
+                        <p>สินค้าผ่านการตรวจสอบคุณภาพ</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tags"></i>
+                        <h3>ราคาประหยัด</h3>
+                        <p>ส่วนลดพิเศษสูงสุด 47%</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-rotate-left"></i>
+                        <h3>เปลี่ยนคืนได้</h3>
+                        <p>เปลี่ยนสินค้าภายใน 7 วัน</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flash Sale -->
+        <section class="flash-sale">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-bolt"></i> โปรโมชั่นพิเศษ</h2>
+                    <p>ลดราคาพิเศษ จำกัดเวลา!</p>
+                </div>
+                <div class="countdown-bar">
+                    <span>สิ้นสุดใน:</span>
+                    <span class="countdown" id="countdown">23:59:59</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="products-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>สินค้าทั้งหมด</h2>
+                    <p>ค้นพบสินค้าคุณภาพจาก THshaper</p>
+                </div>
+                
+                <div class="filter-bar">
+                    <button class="filter-btn active" onclick="filterCategory('all')">ทั้งหมด</button>
+                    <button class="filter-btn" onclick="filterCategory('beauty')">สุขภาพและความงาม</button>
+                    <button class="filter-btn" onclick="filterCategory('home')">เครื่องใช้ไฟฟ้าในบ้าน</button>
+                    <button class="filter-btn" onclick="filterCategory('cleaning')">อุปกรณ์ทำความสะอาด</button>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be inserted by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="newsletter">
+            <div class="container">
+                <h2>รับข่าวสารและโปรโมชั่นพิเศษ</h2>
+                <p>สมัครรับข่าวสารเพื่อรับส่วนลดพิเศษและโปรโมชั่นก่อนใคร</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="กรอกอีเมลของคุณ..." id="newsletterEmail">
+                    <button onclick="subscribeNewsletter()">สมัครรับข่าวสาร</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div id="page-product" class="page">
+        <div class="container">
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="?" onclick="return openPage('home');">หน้าแรก</a> / 
+                <a href="?" onclick="filterCategory('all'); return false;">สินค้าทั้งหมด</a> / 
+                <span id="breadcrumbProduct">สินค้า</span>
+            </div>
+            <button class="btn-back" onclick="openPage('home')">
+                <i class="fas fa-arrow-left"></i> กลับไปหน้าร้าน
+            </button>
+            <div id="productDetail" class="product-detail">
+                <!-- Product detail will be inserted by JavaScript -->
+            </div>
+            <div id="relatedProducts" class="related-section"></div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="page-about" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h2>เกี่ยวกับ THshaper</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>THshaper ร้านค้าออนไลน์อย่างเป็นทางการ</h3>
+                    <p>THshaper คือร้านค้าออนไลน์ที่จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ ครอบคลุมหมวดสุขภาพและความงาม เครื่องใช้ไฟฟ้าในบ้าน และอุปกรณ์ทำความสะอาด เรามุ่งมั่นนำเสนอสินค้าที่มีคุณภาพในราคาที่ประหยัด พร้อมบริการจัดส่งทั่วประเทศไทย</p>
+                    <p>ด้วยประสบการณ์ในการขายสินค้าออนไลน์ เราเข้าใจความต้องการของลูกค้าและพยายามพัฒนาบริการอย่างต่อเนื่อง เพื่อให้ลูกค้าได้รับประสบการณ์การช้อปปิ้งที่ดีที่สุด</p>
+                    
+                    <h3>ทำไมต้องเลือก THshaper?</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> สินค้าคุณภาพผ่านการคัดเลือก</li>
+                        <li><i class="fas fa-check"></i> ราคาประหยัดพร้อมส่วนลดสูงสุด 47%</li>
+                        <li><i class="fas fa-check"></i> จัดส่งรวดเร็วทั่วประเทศไทย</li>
+                        <li><i class="fas fa-check"></i> รับประกันสินค้าและเปลี่ยนคืนได้</li>
+                        <li><i class="fas fa-check"></i> ทีมงานพร้อมให้บริการและให้คำปรึกษา</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="page-contact" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h2>ติดต่อเรา</h2>
+                <p>มีคำถามหรือข้อสงสัย? ติดต่อเราได้ทุกช่องทาง</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>ที่อยู่</h3>
+                            <p>กรุงเทพมหานคร ประเทศไทย</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>โทรศัพท์</h3>
+                            <p>02-xxx-xxxx</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>อีเมล</h3>
+                            <p>contact@thshaper.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-line"></i>
+                        <div>
+                            <h3>LINE</h3>
+                            <p>@thshaper</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-facebook"></i>
+                        <div>
+                            <h3>Facebook</h3>
+                            <p>THshaper Thailand</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" onsubmit="submitContact(event)">
+                        <h3>ส่งข้อความถึงเรา</h3>
+                        <div class="form-group">
+                            <label>ชื่อ-นามสกุล</label>
+                            <input type="text" required placeholder="กรอกชื่อของคุณ">
+                        </div>
+                        <div class="form-group">
+                            <label>อีเมล</label>
+                            <input type="email" required placeholder="กรอกอีเมล">
+                        </div>
+                        <div class="form-group">
+                            <label>เบอร์โทรศัพท์</label>
+                            <input type="tel" placeholder="กรอกเบอร์โทร">
+                        </div>
+                        <div class="form-group">
+                            <label>ข้อความ</label>
+                            <textarea rows="5" required placeholder="กรอกข้อความ"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">ส่งข้อความ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> ตะกร้าสินค้า</h3>
+            <button onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">ตะกร้าสินค้าว่าง</p>
+        </div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-total">
+                <span>รวมทั้งหมด:</span>
+                <span id="cartTotal">฿0</span>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="checkout()">ดำเนินการสั่งซื้อ</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>TH<span class="logo-accent">shaper</span></h3>
+                        <p>ร้านค้าออนไลน์อย่างเป็นทางการ จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ ราคาประหยัด ส่งทั่วประเทศไทย</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-line"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>หมวดสินค้า</h4>
+                        <ul>
+                            <li><a href="#" onclick="filterCategory('beauty'); return false;">สุขภาพและความงาม</a></li>
+                            <li><a href="#" onclick="filterCategory('home'); return false;">เครื่องใช้ไฟฟ้าในบ้าน</a></li>
+                            <li><a href="#" onclick="filterCategory('cleaning'); return false;">อุปกรณ์ทำความสะอาด</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>บริการลูกค้า</h4>
+                        <ul>
+                            <li><a href="#" onclick="showPage('about'); return false;">เกี่ยวกับเรา</a></li>
+                            <li><a href="#" onclick="showPage('contact'); return false;">ติดต่อเรา</a></li>
+                            <li><a href="#">นโยบายการคืนสินค้า</a></li>
+                            <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+                            <li><a href="#">เงื่อนไขการใช้บริการ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>ติดต่อเรา</h4>
+                        <ul>
+                            <li><i class="fas fa-phone"></i> 02-xxx-xxxx</li>
+                            <li><i class="fas fa-envelope"></i> contact@thshaper.com</li>
+                            <li><i class="fab fa-line"></i> @thshaper</li>
+                            <li><i class="fas fa-map-marker-alt"></i> กรุงเทพมหานคร ประเทศไทย</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 THshaper. สงวนลิขสิทธิ์ทุกประการ</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
