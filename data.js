@@ -220,8 +220,8 @@ const storeInfo = {
     nameThai: "ทีเอชเชปเปอร์",
     tagline: "ร้านค้าออนไลน์อย่างเป็นทางการ",
     description: "ร้านค้าออนไลน์ที่จำหน่ายสินค้าไลฟ์สไตล์คุณภาพ ครอบคลุมหมวดสุขภาพและความงาม เครื่องใช้ไฟฟ้าในบ้าน และอุปกรณ์ทำความสะอาด ส่งทั่วประเทศไทย",
-    phone: "02-xxx-xxxx",
-    email: "contact@thshaper.com",
-    address: "กรุงเทพมหานคร ประเทศไทย",
+    phone: "063-468-0244",
+    email: "vumyrcluta31@outlook.com",
+    address: "76 หมู่ที่ 5 ต.เหล่ายาว อ.บ้านโฮ่ง จ.ลำพูน",
     lazadaUrl: "https://www.lazada.co.th/centreasu/"
 };
