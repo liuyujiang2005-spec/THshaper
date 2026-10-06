@@ -61,9 +61,15 @@ def main():
     total = 0
 
     # ---- product images -> data URIs inside data.js ----
-    for i in range(1, 9):
-        rel = "images/product-%d.png" % i
-        uri, size = to_data_uri(os.path.join(IMAGES, "product-%d.png" % i))
+    # Auto-discover every "images/product-N.png" reference so new products
+    # (and removed ones) are handled without editing this script.
+    refs = sorted(set(re.findall(r"images/product-\d+\.png", data_js)))
+    for rel in refs:
+        path = os.path.join(ROOT, rel.replace("/", os.sep))
+        if not os.path.exists(path):
+            print("WARNING: missing image file ->", rel)
+            continue
+        uri, size = to_data_uri(path)
         total += size
         data_js = data_js.replace('"%s"' % rel, '"%s"' % uri)
 
