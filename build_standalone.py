@@ -31,7 +31,8 @@ def to_data_uri(path, max_side=MAX_SIDE, force_jpeg=True):
         img = img.resize((max(1, int(w * scale)), max(1, int(h * scale))), Image.LANCZOS)
 
     buf = io.BytesIO()
-    if has_alpha and not force_jpeg:
+    if not force_jpeg:
+        # keep PNG (lossless) - required for sharp logos / text
         img.save(buf, format="PNG", optimize=True)
         mime = "image/png"
     else:
