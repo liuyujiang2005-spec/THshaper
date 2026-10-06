@@ -315,35 +315,9 @@ function showToast(message, icon = 'check-circle') {
     }, 3000);
 }
 
-// Countdown timer
-function startCountdown() {
-    const countdownEl = document.getElementById('countdown');
-    if (!countdownEl) return;
-    
-    let totalSeconds = 86400; // 24 hours
-    
-    setInterval(() => {
-        if (totalSeconds <= 0) {
-            totalSeconds = 86400;
-        }
-        
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-        
-        countdownEl.textContent = 
-            String(hours).padStart(2, '0') + ':' + 
-            String(minutes).padStart(2, '0') + ':' + 
-            String(seconds).padStart(2, '0');
-        
-        totalSeconds--;
-    }, 1000);
-}
-
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     renderProducts();
-    startCountdown();
     
     // Search on Enter key
     document.getElementById('searchInput').addEventListener('keypress', function(e) {

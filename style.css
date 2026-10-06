@@ -366,30 +366,6 @@ input, textarea {
     color: var(--gray);
 }
 
-/* Flash Sale */
-.flash-sale {
-    padding: 30px 0;
-    background: linear-gradient(135deg, #eafafb 0%, #d5f3f6 100%);
-}
-
-.countdown-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.countdown {
-    background: var(--dark);
-    color: var(--accent);
-    padding: 8px 20px;
-    border-radius: var(--radius);
-    font-family: monospace;
-    font-size: 24px;
-}
-
 /* Products Section */
 .products-section {
     padding: 50px 0;
