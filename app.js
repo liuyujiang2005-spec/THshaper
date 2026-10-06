@@ -62,52 +62,84 @@ function routeFromUrl() {
     }
 }
 
-// Render products
-function renderProducts(productsToRender = null) {
-    const grid = document.getElementById('productsGrid');
-    const list = productsToRender || products;
-    
-    if (list.length === 0) {
-        grid.innerHTML = '<p style="text-align:center; padding:40px; color:#6c757d; grid-column:1/-1;">ไม่พบสินค้าที่ค้นหา</p>';
-        return;
-    }
-    
-    grid.innerHTML = list.map(product => {
-        const stars = renderStars(product.rating);
-        const href = productUrl(product.id);
-        return `
-            <div class="product-card" onclick="openProduct(${product.id})">
-                <div class="product-image">
-                    <span class="product-badge">${product.badge}</span>
-                    <img src="${product.image}" alt="${product.name}" 
-                         onerror="this.src='https://via.placeholder.com/400x400/23B5C1/ffffff?text=THshaper';" />
-                    <span class="product-image-hint"><i class="fas fa-search-plus"></i> ดูรายละเอียด</span>
+// Category presentation order + labels (single source of truth for the UI)
+const CATEGORY_ORDER = ['beauty', 'home', 'cleaning'];
+const CATEGORY_META = {
+    beauty:   { name: 'สุขภาพและความงาม',     icon: 'fa-spa' },
+    home:     { name: 'เครื่องใช้ไฟฟ้าในบ้าน',  icon: 'fa-plug' },
+    cleaning: { name: 'อุปกรณ์ทำความสะอาด',    icon: 'fa-broom' }
+};
+
+// HTML for a single product card
+function productCardHTML(product) {
+    const stars = renderStars(product.rating);
+    const href = productUrl(product.id);
+    return `
+        <div class="product-card" onclick="openProduct(${product.id})">
+            <div class="product-image">
+                <span class="product-badge">${product.badge}</span>
+                <img src="${product.image}" alt="${product.name}" 
+                     onerror="this.src='https://via.placeholder.com/400x400/23B5C1/ffffff?text=THshaper';" />
+                <span class="product-image-hint"><i class="fas fa-search-plus"></i> ดูรายละเอียด</span>
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">
+                    <a href="${href}" onclick="event.stopPropagation(); openProduct(${product.id}); return false;">${product.name}</a>
+                </h3>
+                <div class="product-price">
+                    <span class="price-current">${formatPrice(product.price)}</span>
+                    <span class="price-original">${formatPrice(product.originalPrice)}</span>
                 </div>
-                <div class="product-info">
-                    <h3 class="product-name">
-                        <a href="${href}" onclick="event.stopPropagation(); openProduct(${product.id}); return false;">${product.name}</a>
-                    </h3>
-                    <div class="product-price">
-                        <span class="price-current">${formatPrice(product.price)}</span>
-                        <span class="price-original">${formatPrice(product.originalPrice)}</span>
-                    </div>
-                    <div class="product-rating">
-                        <span class="stars">${stars}</span>
-                        <span>(${product.reviewCount})</span>
-                        ${product.soldCount > 0 ? `<span>· ขายแล้ว ${product.soldCount}</span>` : ''}
-                    </div>
-                    <div class="product-actions">
-                        <a class="btn-lazada" href="${product.lazadaUrl}" target="_blank" rel="noopener"
-                           onclick="event.stopPropagation();">
-                            <i class="fas fa-shopping-bag"></i> ดูบน Lazada
-                        </a>
-                        <a class="btn-quick-view" href="${href}" title="ดูรายละเอียดสินค้า"
-                           onclick="event.stopPropagation(); openProduct(${product.id}); return false;">
-                            <i class="fas fa-eye"></i> ดู
-                        </a>
-                    </div>
+                <div class="product-rating">
+                    <span class="stars">${stars}</span>
+                    <span>(${product.reviewCount})</span>
+                    ${product.soldCount > 0 ? `<span>· ขายแล้ว ${product.soldCount}</span>` : ''}
+                </div>
+                <div class="product-actions">
+                    <a class="btn-lazada" href="${product.lazadaUrl}" target="_blank" rel="noopener"
+                       onclick="event.stopPropagation();">
+                        <i class="fas fa-shopping-bag"></i> ดูบน Lazada
+                    </a>
+                    <a class="btn-quick-view" href="${href}" title="ดูรายละเอียดสินค้า"
+                       onclick="event.stopPropagation(); openProduct(${product.id}); return false;">
+                        <i class="fas fa-eye"></i> ดู
+                    </a>
                 </div>
             </div>
+        </div>
+    `;
+}
+
+// Render products, grouped into clearly separated category blocks
+function renderProducts(productsToRender = null) {
+    const box = document.getElementById('productsGrid');
+    const list = productsToRender || products;
+
+    if (list.length === 0) {
+        box.innerHTML = '<p class="products-empty">ไม่พบสินค้าที่ค้นหา</p>';
+        return;
+    }
+
+    // known categories first (fixed order), then any unexpected ones
+    const known = CATEGORY_ORDER.filter(c => list.some(p => p.category === c));
+    const extra = [...new Set(list.map(p => p.category))].filter(c => !CATEGORY_ORDER.includes(c));
+    const order = known.concat(extra);
+
+    box.innerHTML = order.map(cat => {
+        const items = list.filter(p => p.category === cat);
+        if (items.length === 0) return '';
+        const meta = CATEGORY_META[cat] || { name: items[0].categoryName, icon: 'fa-tag' };
+        return `
+            <section class="category-block" data-category="${cat}">
+                <div class="category-head">
+                    <span class="category-icon"><i class="fas ${meta.icon}"></i></span>
+                    <h3>${meta.name}</h3>
+                    <span class="category-count">${items.length} สินค้า</span>
+                </div>
+                <div class="products-grid">
+                    ${items.map(productCardHTML).join('')}
+                </div>
+            </section>
         `;
     }).join('');
 }
@@ -239,10 +271,7 @@ function filterCategory(category) {
     document.getElementById('searchInput').value = '';
     
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent.includes('ทั้งหมด') && category === 'all') {
-            btn.classList.add('active');
-        }
+        btn.classList.toggle('active', btn.dataset.category === category);
     });
     
     if (category === 'all') {

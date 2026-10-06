@@ -146,18 +146,18 @@
             <div class="container">
                 <div class="section-header">
                     <h2>สินค้าทั้งหมด</h2>
-                    <p>ค้นพบสินค้าคุณภาพจาก THshaper</p>
+                    <p>เลือกชมสินค้าตามหมวดหมู่ที่คุณสนใจ</p>
                 </div>
                 
-                <div class="filter-bar">
-                    <button class="filter-btn active" onclick="filterCategory('all')">ทั้งหมด</button>
-                    <button class="filter-btn" onclick="filterCategory('beauty')">สุขภาพและความงาม</button>
-                    <button class="filter-btn" onclick="filterCategory('home')">เครื่องใช้ไฟฟ้าในบ้าน</button>
-                    <button class="filter-btn" onclick="filterCategory('cleaning')">อุปกรณ์ทำความสะอาด</button>
+                <div class="filter-bar" id="filterBar">
+                    <button class="filter-btn active" data-category="all" onclick="filterCategory('all')">ทั้งหมด</button>
+                    <button class="filter-btn" data-category="beauty" onclick="filterCategory('beauty')">สุขภาพและความงาม</button>
+                    <button class="filter-btn" data-category="home" onclick="filterCategory('home')">เครื่องใช้ไฟฟ้าในบ้าน</button>
+                    <button class="filter-btn" data-category="cleaning" onclick="filterCategory('cleaning')">อุปกรณ์ทำความสะอาด</button>
                 </div>
                 
-                <div class="products-grid" id="productsGrid">
-                    <!-- Products will be inserted by JavaScript -->
+                <div class="products-container" id="productsGrid">
+                    <!-- Category blocks will be inserted by JavaScript -->
                 </div>
             </div>
         </section>
